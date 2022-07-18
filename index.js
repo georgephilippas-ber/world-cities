@@ -30,13 +30,26 @@ const fs_1 = require("fs");
 const better_sqlite3_1 = __importDefault(require("better-sqlite3"));
 const csv = __importStar(require("fast-csv"));
 const path = __importStar(require("path"));
-function createDatabase(table = "world_cities") {
+function createDatabase(table = "world_cities", lines = 0x03) {
     const db = new better_sqlite3_1.default(path.join(__dirname, "database", "worldcities.db"), { verbose: console.log });
+    let current_line_ = 0;
     db.exec(`drop table if exists ${table}`);
-    db.exec(`create table if not exists ${table} (city TEXT, city_ascii TEXT, latitude REAL, longitude REAL, country TEXT, alpha_2 TEXT, alpha_3 TEXT, admin_name TEXT, capital TEXT, population INTEGER, id INTEGER PRIMARY KEY)`);
+    db.exec(`create table if not exists ${table} (id INTEGER PRIMARY KEY, city TEXT, city_ascii TEXT, latitude REAL, longitude REAL, country TEXT, alpha_2 TEXT, alpha_3 TEXT, admin_name TEXT, capital TEXT, population INTEGER)`);
     let statement = db.prepare(`insert into ${table} values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
     (0, fs_1.createReadStream)(path.join(__dirname, "database", "worldcities.csv")).pipe(csv.parse({ headers: true })).on("error", err => console.log(err)).on("data", chunk => {
-        statement.run(Object.values(chunk));
+        if (current_line_++ == lines) {
+            db.close();
+            process.exit();
+        }
+        console.log(Object.values(chunk));
+        let values_ = [parseInt(chunk["id"]), chunk["city"], chunk["city_ascii"], parseFloat(chunk["lat"]), parseFloat(chunk["lon"]), chunk["country"], chunk["iso2"], chunk["iso3"], chunk["admin_name"], chunk["capital"], chunk["population"]];
+        console.log(values_);
+        //statement.run(Object.values(chunk));
     }).on("end", (rowCount) => console.log(rowCount));
 }
 createDatabase();
+class WorldCities {
+    constructor() {
+        const db = new better_sqlite3_1.default(path.join(__dirname, "database", "worldcities.db"), { verbose: console.log });
+    }
+}
