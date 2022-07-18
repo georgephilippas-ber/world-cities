@@ -2,7 +2,8 @@
 
 ## Source
 
-[World Cities Database](https://simplemaps.com/data/world-cities)
+[World Cities Database](https://simplemaps.com/data/world-cities) under
+[Creative Commons](https://creativecommons.org/)
 
 ## Instalation
 
@@ -37,7 +38,7 @@ let Paris: wcLocation = {
 
 let worldCities = new WorldCities();
 
-worldCities.createDatabase(40).then(value =>
+worldCities.createDatabase().then(value =>
 {
     console.log(value);
 
@@ -51,4 +52,3 @@ worldCities.createDatabase(40).then(value =>
     console.log(worldCities.minimum(Paris));
 });
 ```
-
