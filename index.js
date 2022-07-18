@@ -26,9 +26,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const fs_1 = require("fs");
 const better_sqlite3_1 = __importDefault(require("better-sqlite3"));
 const csv = __importStar(require("fast-csv"));
-const fs_1 = require("fs");
 const path = __importStar(require("path"));
 function createDatabase(table = "world_cities") {
     const db = new better_sqlite3_1.default(path.join(__dirname, "database", "worldcities.db"), { verbose: console.log });

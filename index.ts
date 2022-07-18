@@ -20,4 +20,4 @@ function createDatabase(table: string = "world_cities")
     }).on("end", (rowCount: number) => console.log(rowCount));
 }
 
-createDatabase();
+//createDatabase();
