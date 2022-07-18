@@ -45,4 +45,4 @@ function createDatabase(table = "world_cities", max_lines) {
         statement.run(values_);
     }).on("end", (rowCount) => console.log(rowCount));
 }
-createDatabase(undefined, 10);
+createDatabase(undefined, 0xff);

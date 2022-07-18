@@ -31,4 +31,4 @@ function createDatabase(table: string = "world_cities", max_lines?: number)
     }).on("end", (rowCount: number) => console.log(rowCount));
 }
 
-createDatabase(undefined, 10);
+createDatabase(undefined, 0xff);
