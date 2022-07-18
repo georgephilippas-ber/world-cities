@@ -41,8 +41,8 @@ function createDatabase(table = "world_cities", max_lines) {
             db.close();
             process.exit();
         }
-        let values_ = [parseInt(chunk["id"]), chunk["city"], chunk["city_ascii"], parseFloat(chunk["lat"]), parseFloat(chunk["lng"]), chunk["country"], chunk["iso2"], chunk["iso3"], chunk["admin_name"], chunk["capital"], chunk["population"]];
+        let values_ = [parseInt(chunk["id"]), chunk["city"], chunk["city_ascii"], parseFloat(chunk["lat"]), parseFloat(chunk["lng"]), chunk["country"], chunk["iso2"], chunk["iso3"], chunk["admin_name"], chunk["capital"], parseInt(chunk["population"])];
         statement.run(values_);
     }).on("end", (rowCount) => console.log(rowCount));
 }
-createDatabase();
+createDatabase(undefined, 10);
