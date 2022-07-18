@@ -67,6 +67,8 @@ export class WorldCities
 
                     let values_ = [parseInt(chunk["id"]), chunk["city"], chunk["city_ascii"], parseFloat(chunk["lat"]), parseFloat(chunk["lng"]), chunk["country"], chunk["iso2"], chunk["iso3"], chunk["admin_name"], chunk["capital"], parseInt(chunk["population"])];
 
+                    console.log(current_line_, values_[1]);
+
                     statement.run(values_);
                 }
             });

@@ -22,7 +22,7 @@ let Paris: wcLocation = {
 
 let worldCities = new WorldCities();
 
-worldCities.createDatabase(40).then(value =>
+worldCities.createDatabase().then(value =>
 {
     console.log(value);
 
