@@ -34,7 +34,7 @@ export class WorldCities
     {
         this.tableName = tableName;
 
-        this.database = new Database(path.join(__dirname, "database", "worldcities.db"), {verbose: console.log});
+        this.database = new Database(path.join(__dirname, "database", "worldcities.db"));
     }
 
     async createDatabase(max_lines?: number): Promise<number>
@@ -42,7 +42,7 @@ export class WorldCities
         return new Promise<number>((resolve, reject) =>
         {
 
-            const db = new Database(path.join(__dirname, "database", "worldcities.db"), {verbose: console.log});
+            const db = new Database(path.join(__dirname, "database", "worldcities.db"));
 
             let current_line_: number = 0;
 

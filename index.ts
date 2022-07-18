@@ -1,29 +1,37 @@
 import {WorldCities, wcLocation, wcResult} from "./world-cities";
 
+let Athens: wcLocation = {
+    latitude: 37.98,
+    longitude: 23.72
+}
+
 let Berlin: wcLocation = {
     latitude: 52.52,
     longitude: 13.40
 };
 
-let Athens: wcLocation = {
-    latitude: 37.9838,
-    longitude: 23.72
-}
-
 let London: wcLocation = {
-    latitude: 51.5072,
-    longitude: 0.1276
+    latitude: 51.50,
+    longitude: 0.12
 };
 
 let Paris: wcLocation = {
-    latitude: 48.8566,
-    longitude: 2.3522
+    latitude: 48.85,
+    longitude: 2.35
 }
 
 let worldCities = new WorldCities();
 
-
-worldCities.createDatabase(100).then(value =>
+worldCities.createDatabase(40).then(value =>
 {
     console.log(value);
+
+    let result: wcResult = worldCities.minimum({latitude: 37.38, longitude: 24.45});
+
+    console.log(result);
+
+    console.log(worldCities.minimum(Athens));
+    console.log(worldCities.minimum(Berlin));
+    console.log(worldCities.minimum(London));
+    console.log(worldCities.minimum(Paris));
 });
