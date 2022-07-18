@@ -5,7 +5,7 @@ import Database from "better-sqlite3";
 import * as csv from 'fast-csv';
 import * as path from "path";
 
-function createDatabase(table: string = "world_cities", lines: number = 0x03)
+function createDatabase(table: string = "world_cities", max_lines?: number)
 {
     const db = new Database(path.join(__dirname, "database", "worldcities.db"), {verbose: console.log});
 
@@ -18,28 +18,15 @@ function createDatabase(table: string = "world_cities", lines: number = 0x03)
 
     createReadStream(path.join(__dirname, "database", "worldcities.csv")).pipe(csv.parse({headers: true})).on("error", err => console.log(err)).on("data", chunk =>
     {
-        if (current_line_++ == lines)
+        if (current_line_++ == max_lines)
         {
             db.close();
             process.exit();
         }
-        console.log(Object.values(chunk));
+        let values_ = [parseInt(chunk["id"]), chunk["city"], chunk["city_ascii"], parseFloat(chunk["lat"]), parseFloat(chunk["lng"]), chunk["country"], chunk["iso2"], chunk["iso3"], chunk["admin_name"], chunk["capital"], chunk["population"]]
 
-        //TODO: longitude NaN
-        let values_ = [parseInt(chunk["id"]), chunk["city"], chunk["city_ascii"], parseFloat(chunk["lat"]), parseFloat(chunk["lon"]), chunk["country"], chunk["iso2"], chunk["iso3"], chunk["admin_name"], chunk["capital"], chunk["population"]]
-
-        console.log(values_);
-
-        //statement.run(Object.values(chunk));
+        statement.run(values_);
     }).on("end", (rowCount: number) => console.log(rowCount));
 }
 
 createDatabase();
-
-class WorldCities
-{
-    constructor()
-    {
-        const db = new Database(path.join(__dirname, "database", "worldcities.db"), {verbose: console.log});
-    }
-}
