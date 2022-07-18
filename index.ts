@@ -31,4 +31,20 @@ function createDatabase(table: string = "world_cities", max_lines?: number)
     }).on("end", (rowCount: number) => console.log(rowCount));
 }
 
-createDatabase(undefined, 0xff);
+//createDatabase(undefined, 0xff);
+
+class WorldCities
+{
+    database: Database.Database;
+
+    constructor()
+    {
+        this.database = new Database(path.join(__dirname, "database", "worldcities.db"), {verbose: console.log});
+
+        let f = this.database.prepare("select * from world_cities").get();
+
+        console.log(f);
+    }
+
+
+}
