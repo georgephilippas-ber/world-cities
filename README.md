@@ -8,7 +8,7 @@
 ## Instalation
 
 ```shell
-$ npm install world-cities
+$ npm install @georgephilippas-ber/world-cities
 ```
 
 ## Example
