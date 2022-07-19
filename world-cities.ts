@@ -25,16 +25,19 @@ export type wcResult =
         distance: number;
     }
 
-class WorldCitiesRouter
+export class WorldCities_server
 {
     endpoint: string;
     expressApplication: Express;
 
     router: Router;
+    worldCities: WorldCities;
 
-    constructor(endpoint: string, expressApplication: Express)
+    constructor(expressApplication: Express, endpoint: string = "worldcities")
     {
         this.endpoint = endpoint;
+
+        this.worldCities = new WorldCities();
 
         this.expressApplication = expressApplication;
         this.router = Router();
@@ -42,9 +45,36 @@ class WorldCitiesRouter
 
     use()
     {
+        this.router.use(express.json());
+        this.router.get("/minimum", (req, res) =>
+        {
+            const latitude = parseInt(req.query["latitude"] as string ?? ""),
+                longitude = parseInt(req.query["longitude"] as string ?? "");
 
+            if (isNaN(latitude) || isNaN(longitude))
+                res.status(400).send();
+            else
+                res.send(this.worldCities.minimum({latitude, longitude}));
+        });
 
         this.expressApplication.use("/" + this.endpoint, this.router);
+    }
+
+    start(port: number = 0x2000)
+    {
+        let wcServer = this.expressApplication.listen(port, () =>
+        {
+            console.log("WorldCities");
+
+            console.log("http://localhost:" + port + "/worldcities/minimum")
+        });
+
+        process.on("SIGINT", args =>
+        {
+            console.log("!WorldCities");
+
+            wcServer.close();
+        });
     }
 }
 
