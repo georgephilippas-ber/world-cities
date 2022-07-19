@@ -46,9 +46,12 @@ export function asServer()
 
     let wcServer = new WorldCities_server(application);
 
-    wcServer.createRoute();
+    wcServer.createWorldCitiesRoute();
 
     wcServer.start();
 }
 
+//http://localhost:8192/worldcities/minimum?latitude=-13.7002&longitude=125.8601
 asServer();
+
+//asRoute: (new WorldCities_server(express())).createRoute();

@@ -14,7 +14,8 @@ $ npm install @georgephilippas-ber/world-cities
 ## Example
 
 ```typescript
-import {WorldCities, wcLocation, wcResult} from "./world-cities";
+import {WorldCities, wcLocation, wcResult, WorldCities_server} from "./world-cities";
+import express from "express";
 
 let Athens: wcLocation = {
     latitude: 37.98,
@@ -36,19 +37,38 @@ let Paris: wcLocation = {
     longitude: 2.35
 }
 
-let worldCities = new WorldCities();
-
-worldCities.createDatabase().then(value =>
+function buildOnce()
 {
-    console.log(value);
+    let worldCities = new WorldCities();
 
-    let result: wcResult = worldCities.minimum({latitude: 37.38, longitude: 24.45});
+    worldCities.createDatabase().then(value =>
+    {
+        console.log(value);
 
-    console.log(result);
+        let result: wcResult = worldCities.minimum({latitude: 37.38, longitude: 24.45});
 
-    console.log(worldCities.minimum(Athens));
-    console.log(worldCities.minimum(Berlin));
-    console.log(worldCities.minimum(London));
-    console.log(worldCities.minimum(Paris));
-});
+        console.log(result);
+
+        console.log(worldCities.minimum(Athens));
+        console.log(worldCities.minimum(Berlin));
+        console.log(worldCities.minimum(London));
+        console.log(worldCities.minimum(Paris));
+    });
+}
+
+export function asServer()
+{
+    let application = express();
+
+    let wcServer = new WorldCities_server(application);
+
+    wcServer.createWorldCitiesRoute();
+
+    wcServer.start();
+}
+
+//http://localhost:8192/worldcities/minimum?latitude=-13.7002&longitude=125.8601
+asServer();
+
+//asRoute: (new WorldCities_server(express())).createRoute();
 ```
