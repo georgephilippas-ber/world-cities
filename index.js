@@ -34,11 +34,10 @@ function buildOnce() {
         console.log(worldCities.minimum(Paris));
     });
 }
-//
 function asServer() {
     let application = (0, express_1.default)();
     let wcServer = new world_cities_1.WorldCities_server(application);
-    wcServer.use();
+    wcServer.createRoute();
     wcServer.start();
 }
 exports.asServer = asServer;

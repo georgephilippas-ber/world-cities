@@ -6,6 +6,7 @@ import Database from "better-sqlite3";
 import path from "path";
 
 import * as csv from "fast-csv";
+import {faker} from "@faker-js/faker";
 
 export type wcLocation = { latitude: number; longitude: number };
 
@@ -66,11 +67,12 @@ export class WorldCities_server
         {
             console.log("WorldCities");
 
-            console.log("http://localhost:" + port + "/worldcities/minimum")
+            console.log("http://localhost:" + port + `/worldcities/minimum?latitude=${faker.address.latitude()}&longitude=${faker.address.longitude()}`)
         });
 
         process.on("SIGINT", args =>
         {
+            console.log();
             console.log("!WorldCities");
 
             wcServer.close();
