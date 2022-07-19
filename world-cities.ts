@@ -43,7 +43,7 @@ export class WorldCities_server
         this.router = Router();
     }
 
-    use()
+    public createRoute()
     {
         this.router.use(express.json());
         this.router.get("/minimum", (req, res) =>

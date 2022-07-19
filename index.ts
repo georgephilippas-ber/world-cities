@@ -40,14 +40,13 @@ function buildOnce()
     });
 }
 
-//
 export function asServer()
 {
     let application = express();
 
     let wcServer = new WorldCities_server(application);
 
-    wcServer.use();
+    wcServer.createRoute();
 
     wcServer.start();
 }
