@@ -54,4 +54,4 @@ export function asServer()
 //http://localhost:8192/worldcities/minimum?latitude=-13.7002&longitude=125.8601
 asServer();
 
-//asRoute: (new WorldCities_server(express())).createRoute();
+//asRoute: (new WorldCities_server(express())).createWorldCitiesRoute();
