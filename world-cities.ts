@@ -1,3 +1,5 @@
+import express, {Express, Router} from "express";
+
 import {createReadStream} from "fs";
 import Database from "better-sqlite3";
 
@@ -23,6 +25,28 @@ export type wcResult =
         distance: number;
     }
 
+class WorldCitiesRouter
+{
+    endpoint: string;
+    expressApplication: Express;
+
+    router: Router;
+
+    constructor(endpoint: string, expressApplication: Express)
+    {
+        this.endpoint = endpoint;
+
+        this.expressApplication = expressApplication;
+        this.router = Router();
+    }
+
+    use()
+    {
+
+
+        this.expressApplication.use("/" + this.endpoint, this.router);
+    }
+}
 
 export class WorldCities
 {
